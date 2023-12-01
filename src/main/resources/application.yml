@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: petshop-message-api
+  web:
+    resources:
+      add-mappings: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+      enabled-by-default: true
+
+server:
+  port: 8081
+  servlet:
+    context-path: /petshop-message-api
+    encoding:
+      charset: UTF-8
+      enabled: true
+  max-http-request-header-size: 48000
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  kafka:
+    bootstrap-servers: 127.0.0.1:29092
+
+message:
+  appointment:
+    topic-name: agendamento
