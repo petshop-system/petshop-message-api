@@ -2,12 +2,16 @@ package com.petshopsystem.petshopmessageapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.petshopsystem.petshopmessageapi.service.Schedulable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/appointment")
 public class AppointmentController {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Schedulable appointmentService;
 
