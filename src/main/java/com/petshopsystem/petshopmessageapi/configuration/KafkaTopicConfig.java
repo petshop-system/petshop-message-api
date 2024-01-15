@@ -16,8 +16,8 @@ public class KafkaTopicConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
-    @Value("${message.appointment.topic-name:}")
-    private String APPOINTMENT_TOPIC;
+    @Value("${message.schedule.topic-name:}")
+    private String SCHEDULE_TOPIC;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -28,7 +28,7 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic topicSchedule() {
-        return new NewTopic(APPOINTMENT_TOPIC, 1, (short) 1);
+        return new NewTopic(SCHEDULE_TOPIC, 1, (short) 1);
     }
 
 }

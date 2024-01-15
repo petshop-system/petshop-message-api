@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class ScheduleService implements Schedulable {
 
-    @Value("${message.appointment.topic-name:}")
-    private String APPOINTMENT_TOPIC;
+    @Value("${message.schedule.topic-name:}")
+    private String SCHEDULE_TOPIC;
 
     private final MessageProducible messageProducible;
 
@@ -22,6 +22,6 @@ public class ScheduleService implements Schedulable {
     @Override
     public void create(Schedule schedule) throws JsonProcessingException {
         String message = objectMapper.writeValueAsString(schedule);
-        messageProducible.sendMessage(APPOINTMENT_TOPIC, message);
+        messageProducible.sendMessage(SCHEDULE_TOPIC, message);
     }
 }
