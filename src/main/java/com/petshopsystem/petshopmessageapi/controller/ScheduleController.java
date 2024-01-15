@@ -6,21 +6,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/appointment")
-public class AppointmentController {
+@RequestMapping("/schedule")
+public class ScheduleController {
 
-    private final Schedulable appointmentService;
+    private final Schedulable scheduleService;
 
-    public AppointmentController (Schedulable appointmentService) {
-        this.appointmentService = appointmentService;
+    public ScheduleController(Schedulable scheduleService) {
+        this.scheduleService = scheduleService;
     }
 
     @PostMapping(path = "/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void register (@RequestBody AppointmentRequest appointmentRequest) {
+    public void register (@RequestBody ScheduleRequest scheduleRequest) {
 
         try {
-            appointmentService.create(appointmentRequest.toAppointment());
+            scheduleService.create(scheduleRequest.toSchedule());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

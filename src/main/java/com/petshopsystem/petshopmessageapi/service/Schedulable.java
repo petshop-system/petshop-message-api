@@ -4,5 +4,5 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface Schedulable {
 
-    void create(Appointment appointment) throws JsonProcessingException;
+    void create(Schedule appointment) throws JsonProcessingException;
 }

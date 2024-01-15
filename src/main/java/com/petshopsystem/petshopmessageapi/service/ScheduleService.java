@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.petshopsystem.petshopmessageapi.repository.MessageProducible;
 import org.springframework.beans.factory.annotation.Value;
 
-public class AppointmentService implements Schedulable {
+public class ScheduleService implements Schedulable {
 
     @Value("${message.appointment.topic-name:}")
     private String APPOINTMENT_TOPIC;
@@ -14,14 +14,14 @@ public class AppointmentService implements Schedulable {
 
     private final ObjectMapper objectMapper;
 
-    public AppointmentService(MessageProducible messageProducible, ObjectMapper objectMapper) {
+    public ScheduleService(MessageProducible messageProducible, ObjectMapper objectMapper) {
         this.messageProducible = messageProducible;
         this.objectMapper = objectMapper;
     }
 
     @Override
-    public void create(Appointment appointment) throws JsonProcessingException {
-        String message = objectMapper.writeValueAsString(appointment);
+    public void create(Schedule schedule) throws JsonProcessingException {
+        String message = objectMapper.writeValueAsString(schedule);
         messageProducible.sendMessage(APPOINTMENT_TOPIC, message);
     }
 }

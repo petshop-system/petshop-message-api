@@ -1,8 +1,9 @@
 package com.petshopsystem.petshopmessageapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.petshopsystem.petshopmessageapi.repository.MessageProducible;
-import com.petshopsystem.petshopmessageapi.service.AppointmentService;
+import com.petshopsystem.petshopmessageapi.service.ScheduleService;
 import com.petshopsystem.petshopmessageapi.service.Schedulable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,11 +18,13 @@ public class PetshopMessageApiApplication {
 
 	@Bean
 	public ObjectMapper objectMapper() {
-		return new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
+		JavaTimeModule javaTimeModule = new JavaTimeModule();
+		return objectMapper.registerModule(javaTimeModule);
 	}
 
 	@Bean
-	public Schedulable appointmentService (MessageProducible messageProducible, ObjectMapper objectMapper) {
-		return new AppointmentService(messageProducible, objectMapper);
+	public Schedulable scheduleService (MessageProducible messageProducible, ObjectMapper objectMapper) {
+		return new ScheduleService(messageProducible, objectMapper);
 	}
 }

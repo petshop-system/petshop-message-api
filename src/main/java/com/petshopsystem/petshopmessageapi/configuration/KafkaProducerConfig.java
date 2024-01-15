@@ -41,7 +41,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public MessageProducible topicProduceble (KafkaTemplate<String, String> kafkaTemplate) {
+    public MessageProducible topicProducible(KafkaTemplate<String, String> kafkaTemplate) {
         return new KafkaRepository(kafkaTemplate);
     }
 }

@@ -27,7 +27,7 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic topicAppointment() {
+    public NewTopic topicSchedule() {
         return new NewTopic(APPOINTMENT_TOPIC, 1, (short) 1);
     }
 
