@@ -15,13 +15,17 @@ management:
       enabled-by-default: true
 
 server:
-  port: 8081
+  port: 5003
   servlet:
     context-path: /petshop-message-api
     encoding:
       charset: UTF-8
       enabled: true
   max-http-request-header-size: 48000
+
+message:
+  appointment:
+    topic-name: schedule
 
 ---
 spring:
@@ -31,6 +35,11 @@ spring:
   kafka:
     bootstrap-servers: 127.0.0.1:29092
 
-message:
-  appointment:
-    topic-name: agendamento
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  kafka:
+    bootstrap-servers: kafka:29092
+
