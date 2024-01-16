@@ -1,14 +1,12 @@
-FROM openjdk:17-jdk-slim
-VOLUME /tmp
+FROM maven:3.8.1-openjdk-17-slim AS build
+COPY /src /app/src
+COPY /pom.xml /app
+RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip
 
+FROM openjdk:17-jdk-slim
 RUN echo "America/Sao_Paulo" > /etc/timezone
 RUN export TZ=America/Sao_Paulo
+EXPOSE 5003
+COPY --from=build /app/target/*.jar app.jar
 
-ARG DEPENDENCY_CLASS=target/dependency
-COPY ${DEPENDENCY_CLASS}/BOOT-INF/lib        /app/lib
-COPY ${DEPENDENCY_CLASS}/META-INF            /app/META-INF
-COPY ${DEPENDENCY_CLASS}/BOOT-INF/classes    /app
-
-RUN mkdir /tmp/logs
-
-CMD ["java","-Dspring.profiles.active=${SPRING_PROFILE}","-cp","app:app/lib/*","com.petshopsystem.petshopmessageapi.PetshopMessageApiApplication"]
+CMD ["java","-Dspring.profiles.active=${SPRING_PROFILE}","-jar","/app.jar"]
